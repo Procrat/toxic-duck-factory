@@ -9,7 +9,7 @@
 [sub_resource type="ConvexPolygonShape2D" id=1]
 
 custom_solver_bias = 0.0
-points = Vector2Array( -96.4169, 119.382, -167.897, 1.64948, -104.826, -120.288, -3.9126, -124.493, 172.686, 1.64948, 0.292114, 127.792 )
+points = Vector2Array( -22.7347, -0.319633, -1.2851, -16.2082, 20.5617, 0.474792, -1.68231, 18.7467 )
 
 [sub_resource type="SpriteFrames" id=2]
 
@@ -34,7 +34,7 @@ collision/margin = 0.08
 
 frames = SubResource( 2 )
 animation = "idle"
-frame = 2
+frame = 1
 playing = true
 __meta__ = {
 "_edit_lock_": true
@@ -42,9 +42,8 @@ __meta__ = {
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
 
-visibility/visible = false
 build_mode = 0
-polygon = Vector2Array( 0.292114, 127.792, 172.686, 1.64948, -3.9126, -124.493, -104.826, -120.288, -167.897, 1.64948, -96.4169, 119.382 )
+polygon = Vector2Array( -22.7347, -0.319633, -1.2851, -16.2082, 20.5617, 0.474792, -1.68231, 18.7467 )
 shape_range = Vector2( 0, 0 )
 trigger = false
 __meta__ = {
