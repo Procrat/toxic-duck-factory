@@ -57,5 +57,6 @@ func update_goal():
 		else:
 			# Oh noes! There's nowhere to go! Let's stay where we are
 			goal = current_tile
-			
+	
+	set_rot(atan2(previous_direction.x, previous_direction.y) - PI / 2)
 	goal = nav.tile_to_world(new_goal)
