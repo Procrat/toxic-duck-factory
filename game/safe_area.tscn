@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=1]
+
+[ext_resource path="res://game/floor.tscn" type="PackedScene" id=1]
+[ext_resource path="res://sprites/wall and ground/safe area tile.png" type="Texture" id=2]
+
+[node name="floor" instance=ExtResource( 1 )]
+
+texture = ExtResource( 2 )
+
+
