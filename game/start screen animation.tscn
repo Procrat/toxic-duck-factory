@@ -26,23 +26,24 @@
 [ext_resource path="res://sprites/start animation/start_0001_Frame-20-copy-3.png" type="Texture" id=24]
 [ext_resource path="res://sprites/start animation/start_0000_Frame-21.png" type="Texture" id=25]
 
-[sub_resource type="SpriteFrames" id=1]
+[sub_resource type="SpriteFrames" id=3]
 
 animations = [ {
 "frames": [ ExtResource( 1 ), ExtResource( 2 ), ExtResource( 3 ), ExtResource( 4 ), ExtResource( 5 ), ExtResource( 6 ), ExtResource( 7 ), ExtResource( 8 ), ExtResource( 9 ), ExtResource( 10 ), ExtResource( 11 ), ExtResource( 12 ), ExtResource( 13 ), ExtResource( 14 ), ExtResource( 14 ), ExtResource( 15 ), ExtResource( 16 ), ExtResource( 17 ), ExtResource( 18 ), ExtResource( 19 ), ExtResource( 20 ), ExtResource( 21 ), ExtResource( 22 ), ExtResource( 23 ), ExtResource( 24 ), ExtResource( 25 ) ],
 "loop": false,
-"name": "default",
+"name": "start screen",
 "speed": 20.0
 } ]
 
 [node name="AnimatedSprite" type="AnimatedSprite"]
 
-transform/pos = Vector2( 1212.86, 605.493 )
+transform/pos = Vector2( 1944.49, 829.759 )
 transform/scale = Vector2( 0.729753, 0.729753 )
-frames = SubResource( 1 )
-animation = "default"
-frame = 25
+frames = SubResource( 3 )
+animation = "start screen"
+frame = 0
 playing = true
-offset = Vector2( -702.029, -116.851 )
+centered = false
+offset = Vector2( -2664.58, -1137.04 )
 
 
