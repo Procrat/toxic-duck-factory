@@ -40,8 +40,6 @@ func update_goal():
 		
 		possible_directions.append(direction)
 		possible_goals.append(possible_goal)
-		
-	print('After all filtering:', possible_goals)
 	
 	var new_goal
 	

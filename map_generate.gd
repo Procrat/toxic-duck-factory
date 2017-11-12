@@ -23,6 +23,22 @@ class P:
 		return new(x, y)
 
 
+class Rect:
+	var row
+	var col
+	var height
+	var width
+	
+	func _init(row, col, height, width):
+		self.row = row
+		self.col = col
+		self.height = height
+		self.width = width
+	
+	func start():
+		return P.new(row, col)
+
+
 static func four_directions():
 	return [P.new(0, 1), P.new(1, 0), P.new(0, -1), P.new(-1, 0)]
 
@@ -44,24 +60,20 @@ static func generate_map(height, width):
 	
 	return outer_map
 
+
 static func generate_inner_map(height, width):
 	randomize()
 	
-	# TODO four starting points for now
-	var starting_points = []
-	for p in [P.new(0, 0), P.new(0, 1), P.new(1, 0), P.new(1, 1)]:
-		starting_points.append(P.new((height - 1) / 2, (width - 1) / 2).add(p))
-
 	var map_ = array_2d(height, width)
-	for starting_point in starting_points:
-		set_content(map_, starting_point, BASE)
+	
+	var starting_points = construct_base(map_, height, width)
 
 	var paths = []
 	var i = 0
 
 	for starting_point in starting_points:
 		debug('Constructing path %d' % i)
-		var length = rand_range(1, width + height)
+		var length = random_int(1, width + height)
 		var path = make_path(map_, starting_point, length)
 		if path.size() > 0:
 			paths.append(path)
@@ -74,9 +86,9 @@ static func generate_inner_map(height, width):
 	for _ in range(n_extra_paths):
 		debug('Constructing extra path %d' % i)
 		debug(paths)
-		var path = paths[randi() % paths.size()]
-		var starting_point = path[randi() % path.size()]
-		var length = rand_range(1, 2 * (width + height))
+		var path = random_choice(paths)
+		var starting_point = random_choice(path)
+		var length = random_int(1, 2 * (width + height))
 		var path = make_path(map_, starting_point, length)
 		if path.size() > 0:
 			paths.append(path)
@@ -96,8 +108,57 @@ static func array_2d(height, width):
 	return array
 
 
+static func construct_base(map, height, width):
+	var base_rect = Rect.new(int((height - 1) / 2), int((width - 1) / 2), 2, 2)
+	
+	for drow in range(base_rect.height):
+		for dcol in range(base_rect.width):
+			var cell = base_rect.start().add(P.new(drow, dcol))
+			set_content(map, cell, BASE)
+	
+	var starting_points = []
+	
+	if DEBUG:
+		print('base: %d, %d, %d, %d' % [base_rect.row, base_rect.col, base_rect.height, base_rect.width])
+	
+	# left
+	var extension = base_rect.start().add(P.new(random_int(0, base_rect.height), -1))
+	var extension2 = extension.add(P.new(0, -1))
+	make_floor(map, extension)
+	make_floor(map, extension2)
+	starting_points.append(extension2)
+	debug_point('left1', extension)
+	debug_point('left2', extension2)
+	# right
+	var extension = base_rect.start().add(P.new(random_int(0, base_rect.height), base_rect.width))
+	var extension2 = extension.add(P.new(0, 1))
+	make_floor(map, extension)
+	make_floor(map, extension2)
+	starting_points.append(extension2)
+	debug_point('right1', extension)
+	debug_point('right2', extension2)
+	# up
+	var extension = base_rect.start().add(P.new(-1, random_int(0, base_rect.width)))
+	var extension2 = extension.add(P.new(-1, 0))
+	make_floor(map, extension)
+	make_floor(map, extension2)
+	starting_points.append(extension2)
+	debug_point('up1', extension)
+	debug_point('up2', extension2)
+	# down
+	var extension = base_rect.start().add(P.new(base_rect.height, random_int(0, base_rect.width)))
+	var extension2 = extension.add(P.new(1, 0))
+	make_floor(map, extension)
+	make_floor(map, extension2)
+	starting_points.append(extension2)
+	debug_point('down1', extension)
+	debug_point('down2', extension2)
+	
+	return starting_points
+
+
 static func make_path(map_, starting_point, length):
-	debug('Making path from %s of length %d' % [starting_point, length])
+	debug_point('Making path of length %d from' % length, starting_point)
 
 	var path = []
 	var last_pos = starting_point
@@ -106,10 +167,10 @@ static func make_path(map_, starting_point, length):
 		if next_places.size() == 0:
 			debug('No future for this path!')
 			break
-		var cell = next_places[randi() % next_places.size()]
+		var cell = random_choice(next_places)
 		path.append(cell)
 		make_floor(map_, cell)
-		debug('adding %s to path' % cell)
+		debug_point('adding to path', cell)
 		debug_map(map_)
 		last_pos = cell
 	debug(path)
@@ -120,7 +181,7 @@ static func possible_next_places(map_, pos):
 	var places = []
 	for direction in four_directions():
 		var possible_next_place = pos.add(direction)
-		debug('checking next place: %s' % possible_next_place)
+		debug_point('checking next place', possible_next_place)
 
 		if not is_within_boundaries(map_, possible_next_place):
 			continue
@@ -145,7 +206,7 @@ static func is_within_boundaries(map_, pos):
 
 static func has_surrounding_floor(map_, pos, direction):
 	for side in sides(pos, direction):
-		debug('side: %s' % side)
+		debug_point('side', side)
 		if not is_within_boundaries(map_, side):
 			continue
 
@@ -153,7 +214,7 @@ static func has_surrounding_floor(map_, pos, direction):
 			return true
 
 	var in_front = pos.add(direction)
-	debug('in front: %s' % in_front)
+	debug_point('in front', in_front)
 	if (is_within_boundaries(map_, in_front) and
 			is_floor(map_, in_front)):
 
@@ -164,7 +225,7 @@ static func has_surrounding_floor(map_, pos, direction):
 		return false
 
 	for surrounding in diagonal_in_front(pos, direction):
-		debug('directed surrounding: %s' % surrounding)
+		debug_point('directed surrounding', surrounding)
 
 		if not is_within_boundaries(map_, surrounding):
 			continue
@@ -221,6 +282,19 @@ static func debug_map(map_):
 			print()
 
 
-static func debug(args):
+static func debug(arg):
 	if DEBUG:
-		print(args)
+		print(arg)
+
+
+static func debug_point(text, point):
+	if DEBUG:
+		print('%s: (%d, %d)' % [text, point.row, point.col])
+
+
+static func random_int(from_inclusive, to_exclusive):
+	return from_inclusive + (randi() % (to_exclusive - from_inclusive))
+
+
+static func random_choice(arr):
+	return arr[randi() % arr.size()]
