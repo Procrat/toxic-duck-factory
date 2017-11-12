@@ -60,7 +60,7 @@ func get_random_free_pos(map, existing_ducks):
 	for _ in range(RANDOM_TRIES):
 		var row = randi() % map.size()
 		var col = randi() % map[row].size()
-		var pos = Vector2(col, row)
+		var pos = map_generate.P.new(row, col)
 		if map[row][col] != map_generate.WALL and not pos in existing_ducks:
 			return pos
-	return Vector2(-1, -1)
+	return map_generate.P.new(-1, -1)

@@ -15,6 +15,12 @@ class P:
 
 	func add(other):
 		return make_new(self.row + other.row, self.col + other.col)
+	
+	func sub(other):
+		return make_new(self.row - other.row, self.col - other.col)
+	
+	func invert():
+		return make_new(-self.row, -self.col)
 
 	func equals(other):
 		return self.row == other.row and self.col == other.col
