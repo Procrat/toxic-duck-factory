@@ -29,7 +29,7 @@ func generate_level():
 		duck.set_pos(nav.tile_to_world(get_random_free_pos(map, ducks)))
 		ducks.append(duck)
 		nav.add_child(duck)
-	
+
 func construct_map(map):
 	print('cell size:', CELL)
 	var row_idx = 0
@@ -42,8 +42,7 @@ func construct_map(map):
 			col_idx += 1
 		row_idx += 1
 	
-	OS.set_window_size(Vector2(map[0].size() * CELL.size.x, map.size() * CELL.size.y))
-	OS.set_window_resizable(false)
+	# OS.set_window_size(Vector2(map[0].size() * CELL.size.x, map.size() * CELL.size.y))
 
 func get_random_free_pos(map, existing_ducks):
 	for _ in range(RANDOM_TRIES):
