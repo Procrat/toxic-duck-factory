@@ -11,10 +11,10 @@
 [ext_resource path="res://sprites/obstacles/FIRE AAH/fire 9.png" type="Texture" id=9]
 [ext_resource path="res://sprites/obstacles/FIRE AAH/fire 1.png" type="Texture" id=10]
 
-[sub_resource type="ConvexPolygonShape2D" id=1]
+[sub_resource type="ConvexPolygonShape2D" id=3]
 
 custom_solver_bias = 0.0
-points = Vector2Array( -24.8659, -1.52601, 0.105888, -6.28255, 24.8399, -1.28819, 0.343712, 3.46835 )
+points = Vector2Array( -31.3513, -1.78348, -0.23254, -11.5737, 33.6834, -1.95831, 0.117107, 7.48222 )
 
 [sub_resource type="SpriteFrames" id=2]
 
@@ -38,7 +38,7 @@ animations = [ {
 [node name="StaticBody2D" type="StaticBody2D"]
 
 input/pickable = false
-shapes/0/shape = SubResource( 1 )
+shapes/0/shape = SubResource( 3 )
 shapes/0/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
 shapes/0/trigger = true
 collision/layers = 1
@@ -52,7 +52,7 @@ bounce = 0.0
 
 frames = SubResource( 2 )
 animation = "on"
-frame = 1
+frame = 4
 playing = true
 __meta__ = {
 "_edit_lock_": true
@@ -62,7 +62,7 @@ __meta__ = {
 
 visibility/visible = false
 build_mode = 0
-polygon = Vector2Array( -24.8659, -1.52601, 0.105888, -6.28255, 24.8399, -1.28819, 0.343712, 3.46835 )
+polygon = Vector2Array( -31.3513, -1.78348, -0.23254, -11.5737, 33.6834, -1.95831, 0.117107, 7.48222 )
 shape_range = Vector2( 0, 0 )
 trigger = true
 
