@@ -6,7 +6,7 @@
 [sub_resource type="RectangleShape2D" id=1]
 
 custom_solver_bias = 0.0
-extents = Vector2( 10, 10 )
+extents = Vector2( 12.0103, 12.1521 )
 
 [node name="wall" type="Node2D"]
 
@@ -38,7 +38,7 @@ transform/pos = Vector2( -0.25, -0.25 )
 transform/scale = Vector2( 0.773438, 0.773438 )
 input/pickable = false
 shapes/0/shape = SubResource( 1 )
-shapes/0/transform = Matrix32( 3.2, 0, 0, 3.2, 1.90735e-06, 1.90735e-06 )
+shapes/0/transform = Matrix32( 3.2, 0, 0, 3.2, 0, 0 )
 shapes/0/trigger = false
 collision/layers = 1
 collision/mask = 1
@@ -49,7 +49,6 @@ bounce = 0.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
 
-transform/pos = Vector2( 1.90735e-06, 1.90735e-06 )
 transform/scale = Vector2( 3.2, 3.2 )
 shape = SubResource( 1 )
 trigger = false
