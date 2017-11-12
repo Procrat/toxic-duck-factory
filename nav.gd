@@ -4,6 +4,7 @@ const map_generate = preload("map_generate.gd")
 
 var map
 var cell
+var door_map
 
 func cell_size():
 	assert(cell.size.x == cell.size.y)
@@ -22,7 +23,7 @@ func world_to_tile(world_pos):
 	                          int(round((world_pos.x + cell.pos.x) / cell.size.x)))
 	
 func is_accessible(tile_pos):
-	return map[tile_pos.row][tile_pos.col] != map_generate.WALL
-	# TODO when doors are implemented:
-	# TODO calc closest_point for each. filter if != goal
-	# TODO calc path for each. filter if size > 1
+	if map[tile_pos.row][tile_pos.col] == map_generate.WALL:
+		return false
+	var door = door_map[tile_pos.row][tile_pos.col]
+	return door == null or door.open

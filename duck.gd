@@ -31,6 +31,7 @@ func update_goal():
 	var possible_directions = []
 	var possible_goals = []
 
+	# Where can we go that is not back and doesn't have a wall or door
 	for direction in [map_generate.P.new(0, 1), map_generate.P.new(1, 0),
 	                  map_generate.P.new(0, -1), map_generate.P.new(-1, 0)]:
 		if previous_direction != null and direction.equals(previous_direction.invert()):

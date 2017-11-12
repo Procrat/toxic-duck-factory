@@ -28,9 +28,9 @@ func generate_level():
 	nav.cell = CELL
 	construct_map(map)
 	
-	place_ducks(map)
+	nav.door_map = place_doors(map, base)
 	
-	place_doors(map, base)
+	place_ducks(map)
 
 func construct_map(map):
 	print('cell size:', CELL)
@@ -85,6 +85,8 @@ func place_doors(map, base):
 		var door = pick_random_cell_for_door(map, doors)
 		doors.append(door)
 	
+	var door_map = map_generate.array_2d(map.size(), map[0].size(), null)
+	
 	for door_config in doors:
 		var pos = door_config[0]
 		var rotated = door_config[1]
@@ -93,6 +95,9 @@ func place_doors(map, base):
 		door.open = randf() < 0.5
 		door.set_rot(PI / 2 if rotated else 0)
 		nav.add_child(door)
+		door_map[pos.row][pos.col] = door
+	
+	return door_map
 
 func pick_random_cell_for_door(map, doors):
 	for _ in range(RANDOM_TRIES):

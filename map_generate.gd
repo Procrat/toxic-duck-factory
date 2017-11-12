@@ -91,7 +91,7 @@ static func generate_map(height, width):
 static func generate_inner_map(height, width):
 	randomize()
 	
-	var map_ = array_2d(height, width)
+	var map_ = array_2d(height, width, WALL)
 	
 	var base = construct_base(map_, height, width)
 
@@ -125,12 +125,12 @@ static func generate_inner_map(height, width):
 	return [base, map_]
 
 
-static func array_2d(height, width):
+static func array_2d(height, width, fill):
 	var array = []
 	for _ in range(height):
 		var row = []
 		for _ in range(width):
-			row.append(WALL)
+			row.append(fill)
 		array.append(row)
 	return array
 
