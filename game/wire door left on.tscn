@@ -4,8 +4,7 @@
 
 [node name="Sprite" type="Sprite"]
 
-transform/pos = Vector2( 2083.36, 115.387 )
+z/z = 10
 texture = ExtResource( 1 )
-offset = Vector2( -2083.36, -115.387 )
 
 

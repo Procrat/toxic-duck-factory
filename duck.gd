@@ -51,14 +51,14 @@ func update_goal():
 		var choice = randi() % possible_goals.size()
 		previous_direction = possible_directions[choice]
 		new_goal = possible_goals[choice]
-	else:
+	elif previous_direction != null:
 		# Dead end! Let's try to go back then...
 		new_goal = current_tile.sub(previous_direction)
 		if nav.is_accessible(new_goal):
 			previous_direction = previous_direction.invert()
-		else:
-			# Oh noes! There's nowhere to go! Let's stay where we are
-			goal = current_tile
+	else:
+		# Oh noes! There's nowhere to go! Let's stay where we are
+		goal = current_tile
 	
 	set_rot(atan2(previous_direction.col, previous_direction.row) - PI / 2)
 	goal = nav.tile_to_world(new_goal)

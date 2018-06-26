@@ -333,6 +333,8 @@ static func debug_point(text, point):
 
 
 static func random_int(from_inclusive, to_exclusive):
+	if from_inclusive == to_exclusive:
+		return from_inclusive
 	return from_inclusive + (randi() % (to_exclusive - from_inclusive))
 
 
